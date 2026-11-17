@@ -1,0 +1,3 @@
+import fs from 'node:fs';
+let css=fs.readFileSync('styles.css','utf8');css=css.replace(/font-size:(\d+)px/g,'font-size:max(16px,calc($1px * var(--text-scale,1)))');css+='\n:root{--text-scale:1}html[data-font=small]{--text-scale:.9}html[data-font=large]{--text-scale:1.15}.film{width:36%}.film-one{left:3%}.film-three{right:7%}\n';fs.writeFileSync('styles.css',css);
+let html=fs.readFileSync('index.html','utf8');html=html.replace('class="brand" aria-label="Reel影片製作"','class="brand" data-i18n-aria="brand" aria-label="Reel影片製作"').replace('id="lesson-prompt" rows="9" readonly','id="lesson-prompt" rows="9" aria-label="動手練習提示詞" data-i18n-aria="lessonPractice" readonly');fs.writeFileSync('index.html',html);

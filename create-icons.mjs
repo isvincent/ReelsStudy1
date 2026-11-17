@@ -1,0 +1,4 @@
+import fs from 'node:fs';
+import {chromium} from '../Reel文字手法解說/node_modules/playwright/index.mjs';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+try{const page=await browser.newPage();const svg=fs.readFileSync('assets/icons/icon.svg','utf8');for(const size of [192,512]){await page.setViewportSize({width:size,height:size});await page.setContent('<style>*{margin:0}svg{display:block;width:100vw;height:100vh}</style>'+svg);await page.screenshot({path:`assets/icons/icon-${size}.png`});}await page.setViewportSize({width:512,height:512});await page.setContent('<style>*{margin:0}body{background:#fff8e9}svg{position:absolute;width:80vw;height:80vh;left:10vw;top:10vh}</style>'+svg);await page.screenshot({path:'assets/icons/maskable-512.png'});}finally{await browser.close();}
